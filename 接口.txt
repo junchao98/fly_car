@@ -1,0 +1,29 @@
+/** 电机 ****** 接口 ** 模块 **/
+MOTOR1/左	PTC1	FTM0
+		PTC2
+
+MOTOR2/右	PTC3	FTM0
+		PTC4
+
+
+/** 测速 ****** 接口 ** 模块 **/
+Left		PTA12	FTM1
+		PTA13
+
+Right		PTA10	FTM2
+		PTA11
+
+
+/** 姿态 ****** 接口 ** 模块 **/
+陀螺仪加速度计	PTD8/CL	I2C0
+		PTD9/DA
+
+
+/** 液晶 ****** 接口 ** 模块 **/
+HMI屏		PTD7/T	UART0
+		PTD6/R
+
+
+/** 蓝牙 ****** 接口 ** 模块 **/
+HC-05		PTC14/R UART4
+		PTC15/T
