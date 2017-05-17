@@ -27,6 +27,11 @@ void System_Init()
   
   //用户代码
   
+  
+    //超声波串口初始化
+  uart_init (UART4, 115200);
+  
+  
   //用户代码
   
   

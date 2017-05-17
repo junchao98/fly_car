@@ -4632,6 +4632,12 @@
       <name>$PROJ_DIR$\..\..\App\Balance.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\App\commun.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\App\commun.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\App\Control.c</name>
     </file>
     <file>
