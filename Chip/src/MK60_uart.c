@@ -273,7 +273,7 @@ void uart_getchar (UARTn_e uratn, char *ch)
     while (!(UART_S1_REG(UARTN[uratn]) & UART_S1_RDRF_MASK));       //等待接收满了
 
     // 获取接收到的8位数据
-    *ch =  UART_D_REG(UARTN[uratn]);
+    *ch = UART_D_REG(UARTN[uratn]);
 
     // 获取 9位数据，应该是（需要修改函数的返回类型）：
     // *ch =   ((( UARTx_C3_REG(UARTN[uratn]) & UART_C3_R8_MASK ) >> UART_C3_R8_SHIFT ) << 8)   |   UART_D_REG(UARTN[uratn]);  //返回9bit
@@ -367,7 +367,7 @@ uint32 uart_querystr (UARTn_e uratn, char *str, uint32 max_len)
 uint32 uart_querybuff (UARTn_e uratn, char *buff, uint32 max_len)
 {
     uint32 i = 0,j;
-    for(j=0;j<100;j++)                 // 10000 的作用是延时，可自行根据情况修改
+    for(j=0;j<1000000;j++)                 // 10000 的作用是延时，可自行根据情况修改
     {
         while(uart_querychar(uratn, buff + i)  )
         {

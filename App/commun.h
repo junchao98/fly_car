@@ -10,7 +10,10 @@
 #include "include.h"
 
 
-#define DATA_LEN  20
+#define DATA_LEN  5
 
+
+
+uint32 get_distance(void);
 
 #endif

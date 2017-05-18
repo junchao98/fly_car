@@ -4,12 +4,16 @@
 
 #include "commun.h"
 
+
+
 uint8 ImageBuff[CAMERA_W*CAMERA_H/8];							// 图像采集缓存地址
 uint8 *imgbuff = (uint8 *)(((uint8 *)&nrf_tx_buff) + COM_LEN);	// 图像地址，用于上位机观察
 uint8 img[CAMERA_W*CAMERA_H]; //由于鹰眼摄像头是一字节8个像素，因而需要解压为 1字节1个像素，方便处理
 int cen = 0;
 int flag = 0;
 int rd0 = 775;
+int a=0;
+
 
 /*********** main函数***********/
 void main(void)
@@ -19,8 +23,13 @@ void main(void)
   System_Init();		//初始化所有模块
   
   SCCB_WriteByte (OV7725_CNST, 60);	//改变图像阈值
+  
   while(1)
   {   
+    a++;
+    
+    if(a==900)a=0;
+    
     /************************ 图像采集和显示  ***********************/
     while (!Image_Flag);
     Image_Flag = 0;
@@ -39,6 +48,12 @@ void main(void)
     Difference = Area_Calculate();      
     pid_rudder(Difference,&rud,flag); 
     ftm_pwm_duty(FTM0, FTM_CH0, rud);//更新舵机控制PWM 
+    
+    
+    //main_test = get_distance();
+
+    
+    
     /********************** HMI串口数据收发   **********************/ 
     if (0)
     {

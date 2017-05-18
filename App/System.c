@@ -18,7 +18,7 @@ void System_Init()
   NVIC_SetPriority(DMA0_IRQn,3);          // 配置优先级
   NVIC_SetPriority(PIT0_IRQn,4);          // 配置优先级
   NVIC_SetPriority(PIT1_IRQn,5);          // 配置优先级
-  NVIC_SetPriority(UART4_RX_TX_IRQn,6);   // 配置优先级
+  NVIC_SetPriority(UART1_RX_TX_IRQn,0);   // 配置优先级
   
   
   /************************ 参数初始化 **********************************/
@@ -29,7 +29,13 @@ void System_Init()
   
   
     //超声波串口初始化
-  uart_init (UART4, 115200);
+  
+  gpio_init(PTA29,GPO,0 );    //拉高
+  
+  uart_init (UART1, 115200);
+  
+  set_vector_handler(UART1_RX_TX_VECTORn ,UART1_IRQHandler);
+  uart_rx_irq_en(UART1);
   
   
   //用户代码
@@ -37,11 +43,12 @@ void System_Init()
   
   
   /************************ 串口 初始化 ************************************/
-  uart_init(UART4, 115200);	// 蓝牙
-  uart_init(UART0, 115200);	// HMI液晶屏
-  set_vector_handler(UART4_RX_TX_VECTORn ,UART4_IRQHandler);	// 设置 UART4 的中断服务函数为 UART4_IRQHandler
-  uart_rx_irq_en(UART4);		// 开串口4接收中断
-  HMI_Send_End();		// 发送一次结束符，清除上电产生的串口杂波数据
+ // uart_init(UART4, 115200);	// 蓝牙
+  //uart_init(UART0, 115200);	// HMI液晶屏
+  //set_vector_handler(UART4_RX_TX_VECTORn ,UART4_IRQHandler);	// 设置 UART4 的中断服务函数为 UART4_IRQHandler
+  //uart_rx_irq_en(UART4);		// 开串口4接收中断
+  
+  //HMI_Send_End();		// 发送一次结束符，清除上电产生的串口杂波数据
   
   
   /************************ 电机 舵机 初始化 ************************************/

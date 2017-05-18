@@ -24,7 +24,10 @@ void PORTE_IRQHandler();//NRF中断服务函数
 void DMA0_IRQHandler(); //摄像头DMA中断服务函数
 void PIT0_IRQHandler(); //定时函数*****按键检测&停车检测&灯塔检测****
 void PIT1_IRQHandler();	//定时函数 定时起跑
+
 void UART4_IRQHandler(void);		// 串口中断
+void UART1_IRQHandler(void);		// 串口中断
+
 void FTM2_INPUT_IRQHandler(void);	// 输入捕获中断
 
 

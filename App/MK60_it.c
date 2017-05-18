@@ -113,6 +113,98 @@ void UART4_IRQHandler(void)
   }
 }
 
+  uint8 count = 0;
+  uint8 cache = 0;
+  uint8 Distance_Buff[4]={0};
+  
+  uint16 distance;
+  uint8 dis_first = 0;
+  
+  uint16 data_list[3] = {0};
+  uint8 list_count = 0;
+  
+void UART1_IRQHandler(void)
+{
+ 
+  
+  UARTn_e uratn = UART1;
+  
+  if(UART_S1_REG(UARTN[uratn]) & UART_S1_RDRF_MASK) //接收数据寄存器满
+  {
+
+ 
+    uart_getchar(uratn,&Distance_Buff[count]);
+    
+     
+    if(Distance_Buff[0] != 0xA5){
+      count = 0;
+    
+    }else {
+    
+      count ++;
+    }
+    
+
+    
+    if(count == 3){
+    
+      
+       cache = Distance_Buff[1] << 8 | Distance_Buff[2];  
+       
+       data_list[list_count] = cache;
+       list_count ++;
+       
+       if(list_count == 3){
+       
+       // distance = 
+         list_count = 0;
+       
+       
+       }
+       
+       
+       count = 0;
+      
+     
+    
+    }
+    
+    
+    
+    
+     }
+  
+  
+    
+    /*
+    if(dis_flag){
+    
+      uart_getchar(uratn,&Distance_Buff[0]);
+      if(Distance_Buff[0] == 0xa5) dis_flag = 0;
+     
+        
+    }else{
+    
+      uart_getchar(uratn,Distance_Buff+count);
+      count++;
+      if(count == 3){
+      
+        dis_flag = 1;
+        main_test = Distance_Buff[1]<<8 | Distance_Buff[2];
+      
+      
+      }
+    
+    }
+    
+    */
+   
+
+    
+    
+    
+}
+
 /*!
 *  @brief      PORTA中断服务函数
 *  @since      v5.0

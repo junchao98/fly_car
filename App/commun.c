@@ -3,13 +3,16 @@
 
 char isr_dat[DATA_LEN] = {0};
 
+
+//int distance;
 uint32 get_distance(void)
 {
   
 
+    uint32 distance;
     
     uint8 i=0;
-    uint32 distance=0;
+    
     
     uart_querybuff(UART1,isr_dat,8);   //获取长度为3的u8 [0] 验校  [1]  [2] 数据
     
@@ -26,7 +29,7 @@ uint32 get_distance(void)
     }
     
     
-    return 0;
+    return 1;
   }
    
 
