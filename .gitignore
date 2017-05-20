@@ -12,6 +12,7 @@
 *.bak 
 *.dep
 *.sfr
+FX15_Debug
 Backup*
 *.tmp.c
 

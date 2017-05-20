@@ -1,0 +1,13 @@
+"E:\Program Files (x86)\IAR77\arm\bin\armproc.dll" 
+
+"E:\Program Files (x86)\IAR77\arm\bin\armjlink2.dll" 
+
+"F:\zyin\fly_car\Prj\IAR\FX15_Debug\Exe\vcan_Kinetis.out" 
+
+--plugin "E:\Program Files (x86)\IAR77\arm\bin\armbat.dll" 
+
+--device_macro "E:\Program Files (x86)\IAR77\arm\config\debugger\NXP\Kxx.dmac" 
+
+
+
+
