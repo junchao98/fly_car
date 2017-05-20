@@ -15,6 +15,16 @@
 */
 #include    "MK60_it.h"
 
+#define DATA_NUM 6
+
+
+  uint8 count = 0;
+  uint8 cache = 0;
+  uint8 Distance_Buff[4]={0};
+  uint16 data_list[6] = {0};
+  uint8 list_count = 0;
+
+
 uchar Time_10ms = 0;
 uchar Time_20ms = 0;
 uchar Time_50ms = 0;
@@ -23,6 +33,8 @@ uchar Time_motor = 0;
 int16 p1 = 0,p2 = 0;
 int32 i1 = 0,i2 = 0;
 int16 d1 = 0,d2 = 0;
+
+
 int spl = 0;
 int spr = 0;
 uint16 ch1_tmp,ch2_tmp,ch3_tmp,ch4_tmp;
@@ -113,15 +125,95 @@ void UART4_IRQHandler(void)
   }
 }
 
-  uint8 count = 0;
-  uint8 cache = 0;
-  uint8 Distance_Buff[4]={0};
+
+
+
+
+
   
-  uint16 distance;
-  uint8 dis_first = 0;
   
-  uint16 data_list[3] = {0};
-  uint8 list_count = 0;
+  uint32 data_average(uint16 *data)
+  {
+    uint8 i = 0;
+    uint8 j = 0;
+    uint32 all = 0;
+    uint32 max = 0;
+    uint32 min = 0;
+    uint32 tem = 0;
+    uint8  max_i = 0;
+    uint8  min_i = 0;
+    uint32 num = DATA_NUM;
+    uint8  dis_error = 0;
+    uint8  data_h[DATA_NUM] = {0};
+    
+    
+
+    for(i = 1; i< DATA_NUM-2; i++){
+      
+    
+    
+    
+    
+    }
+    
+    for(i = 0; i< DATA_NUM; i++){
+      
+      if(data[i] < 199){                   //去除极小
+       data[i] = 0;
+       num --;
+       continue;
+      
+      }
+    
+      
+      
+      if(data[i] > max){                //去除 差大于240
+        
+        if((data[i] - max) > 240){
+          data[i] = 0;
+          max_i ++;
+          num --;
+          continue;
+        }
+        max = data[i];
+        
+      }
+      if(data[i] < min){                 //去除 差大于240
+        
+        if((min - data[i]) > 240){
+          data[i] = 0;
+          min_i ++;
+          num --;
+          continue;
+        }
+        min = data[i];
+      
+      }
+      
+      all += data[i];
+      
+      
+    }
+  
+   
+    tem = max - min ;
+    
+     if(num !=) all = all/num;
+    
+     if(tem > 80){
+  
+      
+       }else{
+       
+       
+           return all;
+       
+       }
+     
+     
+     return 0;
+  
+  }
   
 void UART1_IRQHandler(void)
 {
@@ -151,14 +243,15 @@ void UART1_IRQHandler(void)
       
        cache = Distance_Buff[1] << 8 | Distance_Buff[2];  
        
-       data_list[list_count] = cache;
+       data_list[list_count] = cache;       //数据列
        list_count ++;
        
-       if(list_count == 3){
+       if(list_count == DATA_NUM){         //车速假设2m/s  6*20ms = 120ms  跑240 mm
        
-       // distance = 
+         //添加数据处理
          list_count = 0;
-       
+         
+         
        
        }
        
@@ -175,32 +268,6 @@ void UART1_IRQHandler(void)
      }
   
   
-    
-    /*
-    if(dis_flag){
-    
-      uart_getchar(uratn,&Distance_Buff[0]);
-      if(Distance_Buff[0] == 0xa5) dis_flag = 0;
-     
-        
-    }else{
-    
-      uart_getchar(uratn,Distance_Buff+count);
-      count++;
-      if(count == 3){
-      
-        dis_flag = 1;
-        main_test = Distance_Buff[1]<<8 | Distance_Buff[2];
-      
-      
-      }
-    
-    }
-    
-    */
-   
-
-    
     
     
 }
