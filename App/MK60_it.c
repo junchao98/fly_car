@@ -148,13 +148,26 @@ void UART4_IRQHandler(void)
     
     
 
-    for(i = 1; i< DATA_NUM-2; i++){
+     for(i = 0; i< DATA_NUM; i++){
       
-    
-    
-    
-    
+      if(data[i] > 99) data_h[i] = data[i]/100;
+     
+
     }
+    
+    for(i = 0; i< DATA_NUM; i++){
+    
+        all +=data_h[i];
+      
+      }
+    
+    
+    max = (all /6) * 100+50;
+    min = max;
+    
+   // printf("old max = %d \n",max);
+    
+    all = 0;
     
     for(i = 0; i< DATA_NUM; i++){
       
@@ -165,14 +178,16 @@ void UART4_IRQHandler(void)
       
       }
     
-      
+
       
       if(data[i] > max){                //去除 差大于240
         
         if((data[i] - max) > 240){
-          data[i] = 0;
+          // printf("max mv %d \n",data[i]);
+		  data[i] = 0;
           max_i ++;
           num --;
+         
           continue;
         }
         max = data[i];
@@ -181,9 +196,11 @@ void UART4_IRQHandler(void)
       if(data[i] < min){                 //去除 差大于240
         
         if((min - data[i]) > 240){
-          data[i] = 0;
+          // printf("min mv %d \n",data[i]);
+		  data[i] = 0;
           min_i ++;
           num --;
+          
           continue;
         }
         min = data[i];
@@ -195,25 +212,24 @@ void UART4_IRQHandler(void)
       
     }
   
+   //printf("all = %d \n",all);
+  // printf("num = %d \n",num);
    
-    tem = max - min ;
     
-     if(num !=) all = all/num;
     
-     if(tem > 80){
-  
-      
-       }else{
+     if(num != 0) all = all/num;
+     
+     all = ( max + min+ all)/3;
+    
+ 
        
        
            return all;
        
-       }
-     
-     
-     return 0;
+
   
   }
+  
   
 void UART1_IRQHandler(void)
 {
