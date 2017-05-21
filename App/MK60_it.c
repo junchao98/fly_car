@@ -132,18 +132,19 @@ void UART4_IRQHandler(void)
 
   
   
-  uint32 data_average(uint16 *data)
+    uint32 data_average(uint16 *data)
   {
     uint8 i = 0;
-    uint8 j = 0;
+   
+    uint32 t = 0;
     uint32 all = 0;
     uint32 max = 0;
     uint32 min = 0;
-    uint32 tem = 0;
+   
     uint8  max_i = 0;
     uint8  min_i = 0;
     uint32 num = DATA_NUM;
-    uint8  dis_error = 0;
+   
     uint8  data_h[DATA_NUM] = {0};
     
     
@@ -215,18 +216,26 @@ void UART4_IRQHandler(void)
    //printf("all = %d \n",all);
   // printf("num = %d \n",num);
    
+   // printf("max = %d ,min = %d",max,min) ;
     
+    t = (max - min);  
+    
+    if(t > 100){
+	
+		t = t / 2 +20;
+
+	}else{
+	
+		t = 0;
+	}
+	  
     
      if(num != 0) all = all/num;
      
-     all = ( max + min+ all)/3;
+     all = ( max + min+ all - t)/3;
     
  
-       
-       
-           return all;
-       
-
+    return all;
   
   }
   
